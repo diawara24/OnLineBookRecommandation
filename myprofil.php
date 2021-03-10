@@ -1,6 +1,5 @@
 <?php
 session_start();
-
 //la verfication de variable session et et verfier resevoir la variable b
 if(isset($_SESSION['connecter'])){ 
 
@@ -14,6 +13,11 @@ if(isset($_SESSION['connecter'])){
 if(!isset($_SESSION['connecter'])) 
   $_SESSION['connecter']=false; 
 
+  // if ($_SESSION['connecter']=false)
+  // {
+  //     header("Location: index.php");
+  //     die();
+  // }
 ?>
 
 <!DOCTYPE html>
@@ -22,8 +26,9 @@ if(!isset($_SESSION['connecter']))
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" href="CSS/bootstrap/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="CSS/theme.css"/>
+    <link rel="stylesheet" href="CSS/profile1.css"/>
     <script type="text/javascript" src="JQ/jquery-2.2.1.min.js"></script>
-  <title>biblioweb</title>
+    <title>biblioweb</title>
 </head>
 
 <body>
@@ -52,7 +57,6 @@ if(!isset($_SESSION['connecter']))
            <li><a href="#" >La bibliotheque</a></li>
   </ul>
 </div>
-
 <div class="col-lg-6">
  <div id="iscri">
   <?php 
@@ -72,10 +76,9 @@ if(!isset($_SESSION['connecter']))
  </div>
  <div class="col-lg-5">
  <ul class="nav nav-pills">
-      <li class="active"><a href="profil.php" >Profile</a></li>
+      <li class="active" id="myModal"><a href="myprofil.php" >Livre Acheter</a></li>
       <li><a href="index.php?d=true" >Deconnecter</a></li>
- 
-  </ul>
+ </ul>
 
 </div>
 
@@ -85,13 +88,11 @@ if(!isset($_SESSION['connecter']))
 
   </div> 
 </div>
-
 <div class="row">
 
 <?php
 include('composant/menu.php');
 ?>
-
   <div class="col-lg-9">
   <h2> Acceuil</h2>
     <div class="panel panel-default panel2">
@@ -100,19 +101,13 @@ include('composant/menu.php');
         <div class="row">
           
             <?php include('rec/recommandation.php'); ?>
-
-
         </div>
       </div>
     </div>
   </div>
 </div>
-
-
 <?php
-include('composant/footer.php');
-
-?>
+include('composant/footer.php');?>
 
 
 </body>

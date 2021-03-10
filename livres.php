@@ -29,7 +29,7 @@
     $pages = ceil($nb_livres/$parpage);
 
 
-    //Calcul du prmier article de la page
+    //Calcul du premier article de la page
     $premier= ($currentPage * $parpage) - $parpage;
 
     require_once('modele/connexion.php');
@@ -74,13 +74,14 @@
  		<?php  
 	 		foreach ($livres as $livre) {
 	 	?>
-		  <div class="col-md-4">
-		    <div class="thumbnail">
+		<div class="col-md-4">
+		    <div class="thumbnail" style="height:90vh;">
 		      <a href="consultation.php?ISBN=<?php echo $livre['ISBN'] ?>">
-		        <img src="<?php echo $livre['img_livre']; ?>" alt="Lights" style="width:100%;">
+			  <img src="<?php echo $livre['img_livre']; ?>" alt="Lights" style="width:100%;">
 		      </a>
+			  <h4><?php echo $livre['titre_livre']; ?></h4>
 		    </div>
-		  </div>
+		</div>
 	  <?php } ?>
  	</div>
 	<div class="col-md-12">

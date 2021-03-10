@@ -1,5 +1,7 @@
 <?php
 session_start();
+//session_name('SESSION');
+//session_start();
 
 include('modele/connexion.php');
 
@@ -17,28 +19,6 @@ if(isset($_SESSION['connecter'])){
 if(!isset($_SESSION['connecter'])) 
   $_SESSION['connecter']=false; 
    
-//pour lad conexion je dois verfier dans la premier temps est ce que j'ai les variable 
-if(!empty($_POST['email']) AND !empty($_POST['pwd'])) 
-{
-  $sql="SELECT * FROM client WHERE Email=? AND MDP=?";
-  $query=$myPDO->prepare($sql);
-  $query->execute(array($_POST['email'],$_POST['pwd']));
-
-    $_SESSION['connecter']=true;
-    if($client_connecter=$query->fetch()) {
-    //stocke tt les variable dans session pour travaille dans tous les page
-    $_SESSION['id_client']=$client_connecter['id_client'];
-    $_SESSION['nom_client']=$client_connecter['nom_client'];
-    $_SESSION['Email']=$client_connecter['Email'];
-    $_SESSION['adresse']=$client_connecter['adresse'];
-    $_SESSION['MDP']=$client_connecter['MDP'];
-    $_SESSION['Date_inscription']=$client_connecter['Date_inscription'];
-    }
-
-    header("location: myprofil.php");
-  
-}
-
 ?>
 
 <!DOCTYPE html>
@@ -68,7 +48,7 @@ if(!empty($_POST['email']) AND !empty($_POST['pwd']))
  
   if(!$_SESSION['connecter']){//si connecter il n,affiche pas else il affiche
   ?>
-           <li><a href="#">Inscription</a></li>
+           <li><a href="inscription.php">Inscription</a></li>
     <?php
   }
     ?> 
@@ -83,7 +63,7 @@ if(!empty($_POST['email']) AND !empty($_POST['pwd']))
   <?php 
   if(!$_SESSION['connecter']){
   ?>
-        <form method="post" action="" > 
+        <form method="post" action="loginCheck.php" > 
             <input type="text" name="email" placeholder="Email ou Username" required />
             <input type="password" name="pwd" placeholder="Password" required />
             <input type="submit" value="Login"/>

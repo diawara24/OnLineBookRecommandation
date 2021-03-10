@@ -20,25 +20,27 @@
 	$auteur = $query->fetch();
 	$DateAchat = date("Y-m-d");
 
-	if(isset($_POST['emprunter'])){
+	if(isset($_POST['achat'])){
 		$nb_achat = $livre['nb_achat']+1;
 		$DateAchat = date("Y-m-d");
 		$id_client = $_SESSION['id_client'];
 		$ISBN = $livre['ISBN'];
+		$evaluer = array(1.5,1,2,2.5,3,3.5,4,4.5,5,3,4,5,3.5,4.5);
+		$evaluer = $evaluer[rand ( 0 , count($evaluer) -1)];
 		$sql1="UPDATE livre SET nb_achat=? WHERE ISBN=?";
 		$query1 = $myPDO->prepare($sql1);
 		$query1->execute(array($nb_achat,$ISBN));
 		$sql2="UPDATE client SET Nb_achat= ? WHERE id_client=? ";
 		$query2 = $myPDO->prepare($sql2);
 		$query2->execute(array($nb_achat,$id_client));
-		$sql3 = "INSERT INTO achat(id_client,ISBN,date_achat) VALUES(?,?,?)";
+		$sql3 = "INSERT INTO achat(id_client,ISBN,date_achat, evaluer) VALUES(?,?,?,?)";
 		$query3 = $myPDO->prepare($sql3);
-		$query3->execute(array($id_client,$ISBN,$DateAchat));
+		$query3->execute(array($id_client,$ISBN,$DateAchat, $evaluer));
  ?>
  	<script type="text/javascript"> 
  		window.alert('Achat reuissi !!!');
  	</script>
- <?php } ?>
+ <?php header("location: myprofil.php"); } ?>
 
 <html>
 <head>
@@ -73,27 +75,35 @@
       <div class="caption">
         <h3 class="nom-livre"><?php echo $livre['titre_livre']; ?></h3>
         <p><?php echo $livre['Paragraphe']; ?></p>
-
         <?php if($_SESSION['connecter'] == true){  ?>
             <p>
             	<a href="myprofil.php" class="btn btn-primary" role="button">Retour</a> 
-
-	            <form method="post" action="">
-	                    
-	            <input class="btn btn-default" name="emprunter" type="submit" value="Acheter" />       
-	                    
+				<?php 
+				$id_client = $_SESSION['id_client'];
+				$sql="SELECT * FROM achat WHERE ISBN=? AND id_client=?";
+				$query=$myPDO->prepare($sql);
+				$query->execute(array($ISBN, $id_client));
+				$count = $query->rowCount();
+				if($count == 0 ){
+				?>  
+	            <form method="post" action="">       
+	            <input class="btn btn-info" name="achat" type="submit" value="Acheter" />               
 	            </form>
-            </p>
+				<?php }
+				else{ ?>
+				<input type="" class="btn btn-danger" name="achat" value="Livre Déjà acheté" readonly/>  
+				<?php } ?>
+            </p>	
             <?php } else if($_SESSION['connecter'] == false) { ?>
             	<a href="index.php?chercher=<?php echo $livre['type_livre'] ?>" class="btn btn-primary" role="button">Retour</a> 
-            <?php } ?>
-        
+				<input type="" class="btn btn-info" name="achat" value="Login Pour Acheter" readonly/>  
+            <?php } ?> 
       </div>
     </div>
     <div class="panel panel-default">
 	    <table class="table">
-	    	<tr><th>TYPE DE LIVRE</th><th>EDITEUR</th><th>NOMBRE D'ACHAT</th></tr>
-	 		<tr><td><?php echo $livre['type_livre']; ?></td><td><?php echo $livre['editeur'] ?></td><td><?php echo $livre['nb_achat']; ?></td></tr>
+	    	<tr><th>TYPE DE LIVRE</th><th>NOMBRE D'ACHAT</th><th>Note</th></tr>
+	 		<tr><td><?php echo $livre['type_livre']; ?></td><td><?php echo $livre['nb_achat']; ?></td><td><?php echo $livre['note']; ?></td></tr>
 	    </table>
     </div>
   </div>
@@ -104,13 +114,17 @@
  <div class="col-sm-6 col-md-4 img-auteur">
    <h3 class="nom-livre">Auteur</h3>
     <div class="thumbnail">
-      <?php echo '<img src='.$auteur['img_auteur'].' alt="" />'; ?>
-       <div class="caption">
-        <h3><?php echo $auteur['nom_auteur']." ".$auteur['prenom_auteur']; ?></h3>
-        </div>
+      <?php
+	      if($auteur['img_auteur'] != ""){
+		        echo '<img src='.$auteur['img_auteur'].' alt="" />';
+		   }else{?>
+			    <img src='auteurs/x.jpg' alt="" />
+			<?php } ?>
+		<div class="caption">
+			<h3><?php echo $auteur['nom_auteur']." ".$auteur['prenom_auteur']; ?></h3>
+		</div>
     </div>
   </div>
- 
 </div>
 </div>
 </div>
