@@ -17,7 +17,7 @@ if($link === false){
 }
 
 // $isbn = isset($_POST['isbn']) ? $_POST['isbn'] : '';
-
+/*Google API key remove please put your own key */
 $request = 'https://www.googleapis.com/books/v1/volumes?q=romance&maxResults=40&langRestrict=fr&orderBy=newest&key=API_KEY';
 $response = file_get_contents($request);
 $results = json_decode($response, true);
