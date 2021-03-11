@@ -27,12 +27,15 @@
 		$ISBN = $livre['ISBN'];
 		$evaluer = array(1.5,1,2,2.5,3,3.5,4,4.5,5,3,4,5,3.5,4.5);
 		$evaluer = $evaluer[rand ( 0 , count($evaluer) -1)];
+
 		$sql1="UPDATE livre SET nb_achat=? WHERE ISBN=?";
 		$query1 = $myPDO->prepare($sql1);
 		$query1->execute(array($nb_achat,$ISBN));
+
 		$sql2="UPDATE client SET Nb_achat= ? WHERE id_client=? ";
 		$query2 = $myPDO->prepare($sql2);
 		$query2->execute(array($nb_achat,$id_client));
+		
 		$sql3 = "INSERT INTO achat(id_client,ISBN,date_achat, evaluer) VALUES(?,?,?,?)";
 		$query3 = $myPDO->prepare($sql3);
 		$query3->execute(array($id_client,$ISBN,$DateAchat, $evaluer));

@@ -10,7 +10,7 @@
   require_once("recommend.php");
   require_once('modele/connexion.php');
   //$result = $link->query("select users.firstname, group_concat(book.bookName), group_concat(book.bookRate) from ownerBook INNER JOIN users ON ownerBook.user_id = users.id INNER JOIN book ON book.bookId = ownerBook.book_id group by users.firstname");
-  $result ="SELECT client.nom_client, group_concat(livre.titre_livre), group_concat(achat.evaluer) FROM achat INNER JOIN client ON achat.id_client = client.id_client INNER JOIN livre ON livre.ISBN = achat.ISBN GROUP BY client.nom_client";
+  $result ="SELECT client.nom_client, group_concat(livre.titre_livre SEPARATOR ';'), group_concat(achat.evaluer SEPARATOR ';') FROM achat INNER JOIN client ON achat.id_client = client.id_client INNER JOIN livre ON livre.ISBN = achat.ISBN GROUP BY client.nom_client";
 
   $query=$myPDO->prepare($result);
   $query->execute(array());
@@ -19,11 +19,16 @@
   $outerarray = array();
   $users = array();
   while($row = $query->fetch()){
-  
-    $bookarray = explode(',',$row['group_concat(livre.titre_livre)']);
-    $ratearray= explode(',',$row['group_concat(achat.evaluer)']);
+    // echo "<pre>";
+    // print_r($row);
+    //  echo "</pre>";
+    $bookarray = explode(';',$row[1]);
+    $ratearray= explode(';',$row[2]);
     $inner = array_combine ($bookarray ,$ratearray);
-  
+    // echo "<pre>";
+    //   print_r($bookarray);
+    //   //print_r($ratearray);
+    // echo "</pre>";
     $outerarray += array($row[0]=>$inner);
    // $users = json_encode($outerarray, JSON_NUMERIC_CHECK);
  }
@@ -64,6 +69,7 @@
       <h1 class="display-4 font-weight-bold mb-4" style="color: #F39539; margin-bottom:15px">Livre En Fonction des Achats</h1>
   </header>
     <?php 
+    if($outerarray != NULL){
     $i=1;
       foreach ($recommends as $recommend=>$values) { 
         if ($i <= 6) {
@@ -90,7 +96,12 @@
     <?php 
     $i++;
       }
-      } 
+      }
+    }else{
+     ?>
+     <p><a href="#" class="btn btn-info" role="button">Achete Des Livres Pour être Recommendé des Livre En Fonctions des Achats</a><p>
+     <?php 
+    }
      ?>
      <div class="col-md-12 text-center" style="margin:20px">
        <p><a href="#" class="btn btn-primary" role="button">Voir plus</a><p>
