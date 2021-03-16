@@ -24,7 +24,7 @@
     
     //On determine le nombre de livre par page
     $parpage = 12;
-
+	
     //On determine le nombre total par page
     $pages = ceil($nb_livres/$parpage);
 
@@ -75,11 +75,13 @@
 	 		foreach ($livres as $livre) {
 	 	?>
 		<div class="col-md-4">
-		    <div class="thumbnail" style="height:90vh;">
+		    <div class="thumbnail" style="height:80vh;">
 		      <a href="consultation.php?ISBN=<?php echo $livre['ISBN'] ?>">
 			  <img src="<?php echo $livre['img_livre']; ?>" alt="Lights" style="width:100%;">
+			  <div class="caption">
+         	 		<p><?php echo $livre['titre_livre']; ?></p>
+        		  </div>
 		      </a>
-			  <h4><?php echo $livre['titre_livre']; ?></h4>
 		    </div>
 		</div>
 	  <?php } ?>

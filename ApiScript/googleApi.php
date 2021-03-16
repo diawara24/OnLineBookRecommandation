@@ -1,11 +1,9 @@
 <?php 
-require_once("recommend.php");
-require_once("sample_list.php");
 //require_once 'inputData.php';
 define('DB_SERVER', 'localhost');
 define('DB_USERNAME', 'root');
 define('DB_PASSWORD', '');
-define('DB_NAME', 'biblio_v1');
+define('DB_NAME', 'biblio');
 
 // Create connection
 $link = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
@@ -18,14 +16,14 @@ if($link === false){
 
 // $isbn = isset($_POST['isbn']) ? $_POST['isbn'] : '';
 /*Google API key remove please put your own key */
-$request = 'https://www.googleapis.com/books/v1/volumes?q=romance&maxResults=40&langRestrict=fr&orderBy=newest&key=API_KEY';
+$request = 'https://www.googleapis.com/books/v1/volumes?q=manga&maxResults=10&langRestrict=JPN&orderBy=newest&key=AIzaSyB4wF3fh4UmO2-lVTlZO3gjCYlHGMUYIRQ';
 $response = file_get_contents($request);
 $results = json_decode($response, true);
 $books = array();
 $info = array();
-// echo "<pre>";
-// print_r($results);
-// echo "</pre>";
+echo "<pre>";
+print_r($results);
+echo "</pre>";
 if($results['totalItems'] >0)
 {
 

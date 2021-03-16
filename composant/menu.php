@@ -2,9 +2,11 @@
     include('modele/connexion.php');
     $sql="SELECT DISTINCT type_livre FROM livre WHERE type_livre != '' LIMIT 10";
 
+
     $query=$myPDO->prepare($sql);
     $query->execute(array());
-
+    $_SESSION['type_livre']= $query->fetchAll();
+    //print_r($_SESSION['type_livre']);
     $sql1="SELECT DISTINCT nom_auteur, prenom_auteur FROM auteur LIMIT 10";
 
     $query1=$myPDO->prepare($sql1);
@@ -36,13 +38,13 @@
         <h3>Themes</h3>
             <ul>
               <?php 
-              while($donnees=$query->fetch()){ 
+              foreach ($_SESSION['type_livre'] as $key => $value) { 
              ?>
                 <li>
                   <?php if (!isset($_SESSION['nom_client'])) { ?>
-                  <a href="index.php?chercher=<?= $donnees['type_livre'] ?>"><?php echo $donnees['type_livre']; ?></a>
+                  <a href="index.php?chercher=<?= $value[0] ?>"><?php echo $value[0]; ?></a>
                   <?php } elseif (isset($_SESSION['nom_client'])) {?>
-                    <a href="myprofil.php?chercher=<?= $donnees['type_livre'] ?>"><?php echo $donnees['type_livre']; ?></a>
+                    <a href="myprofil.php?chercher=<?= $value[0] ?>"><?php echo $value[0]; ?></a>
                   <?php } ?>
                 </li>
               <?php 

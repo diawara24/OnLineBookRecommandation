@@ -2,10 +2,10 @@
 -- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Mar 11, 2021 at 12:12 AM
--- Server version: 10.4.11-MariaDB
--- PHP Version: 7.3.16
+-- Hôte : 127.0.0.1:3306
+-- Généré le : mar. 16 mars 2021 à 13:51
+-- Version du serveur :  5.7.31
+-- Version de PHP : 7.4.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,138 +18,76 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `biblio_v1`
+-- Base de données : `biblio`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `achat`
+-- Structure de la table `achat`
 --
 
-CREATE TABLE `achat` (
-  `id_achat` int(99) NOT NULL,
+DROP TABLE IF EXISTS `achat`;
+CREATE TABLE IF NOT EXISTS `achat` (
+  `id_achat` int(99) NOT NULL AUTO_INCREMENT,
   `id_client` int(99) NOT NULL,
   `ISBN` int(99) NOT NULL,
   `date_achat` date DEFAULT NULL,
-  `evaluer` float DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `evaluer` float DEFAULT NULL,
+  PRIMARY KEY (`id_achat`),
+  KEY `id_client` (`id_client`,`ISBN`,`id_achat`),
+  KEY `ISBN` (`ISBN`),
+  KEY `date_emprunt` (`date_achat`)
+) ENGINE=InnoDB AUTO_INCREMENT=197 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `achat`
+-- Déchargement des données de la table `achat`
 --
 
 INSERT INTO `achat` (`id_achat`, `id_client`, `ISBN`, `date_achat`, `evaluer`) VALUES
-(52, 4, 2, '2016-05-03', 3.5),
-(53, 4, 1, '2016-05-03', 3),
-(54, 4, 5, '2016-05-03', 1.5),
-(61, 1, 25, '2016-05-03', 3),
-(64, 4, 9, '2016-05-03', 4),
-(65, 1, 3, '2016-05-16', 4.5),
-(66, 12, 8, '2021-02-12', 2),
-(67, 12, 4, '2021-02-12', 4.5),
-(68, 12, 6, '2021-02-12', 5),
-(69, 12, 11, '2021-02-12', 2),
-(70, 12, 19, '2021-02-12', 2.5),
-(71, 3, 31, '2021-02-12', 3),
-(72, 3, 28, '2021-02-12', 2.5),
-(73, 3, 12, '2021-02-12', 4),
-(74, 6, 24, '2021-02-12', 4.5),
-(75, 6, 14, '2021-02-12', 5),
-(76, 9, 7, '2021-02-12', 2),
-(77, 9, 20, '2021-02-12', 3),
-(78, 9, 36, '2021-02-12', 1),
-(79, 2, 2, '2021-02-12', 4),
-(80, 2, 2, '2021-02-12', 3.5),
-(81, 2, 3, '2021-02-12', 3),
-(82, 2, 3, '2021-02-12', 2),
-(83, 2, 4, '2021-02-12', 1.5),
-(84, 2, 4, '2021-02-12', 1),
-(85, 2, 6, '2021-02-12', 5),
-(86, 2, 8, '2021-02-12', 4),
-(87, 2, 16, '2021-02-12', 2),
-(88, 2, 34, '2021-02-12', 3),
-(89, 3, 19, '2021-02-12', 2.5),
-(90, 3, 23, '2021-02-12', 3),
-(91, 3, 38, '2021-02-12', 4.5),
-(92, 3, 14, '2021-02-12', 5),
-(93, 3, 16, '2021-02-12', 2),
-(94, 3, 12, '2021-02-12', 5),
-(95, 3, 15, '2021-02-12', 4.5),
-(96, 12, 33, '2021-02-17', 5),
-(97, 12, 39, '2021-02-17', 1.5),
-(98, 12, 15, '2021-03-06', 2.5),
-(99, 12, 38, '2021-03-06', 4.5),
-(100, 12, 38, '2021-03-06', 3.5),
-(101, 12, 14, '2021-03-06', 4.5),
-(102, 12, 14, '2021-03-06', 3.5),
-(111, 12, 12, '2021-03-06', 1.5),
-(112, 12, 12, '2021-03-06', 1),
-(113, 12, 2, '2021-03-06', 5),
-(114, 12, 7, '2021-03-06', 1),
-(115, 12, 7, '2021-03-06', 3),
-(116, 12, 24, '2021-03-06', 2.5),
-(117, 12, 32, '2021-03-06', 1),
-(118, 12, 5, '2021-03-06', 1.5),
-(119, 12, 7, '2021-03-06', 2.5),
-(120, 12, 7, '2021-03-06', 4),
-(121, 12, 7, '2021-03-06', 1.5),
-(122, 12, 20, '2021-03-06', 1.5),
-(123, 12, 6, '2021-03-06', 3.5),
-(124, 12, 7, '2021-03-06', 3),
-(125, 12, 1, '2021-03-06', 1),
-(126, 12, 23, '2021-03-06', 5),
-(127, 12, 9, '2021-03-06', 4),
-(128, 12, 513, '2021-03-08', 5),
-(129, 1, 1, '2021-03-08', 4.5),
-(130, 1, 513, '2021-03-08', 3.5),
-(131, 1, 514, '2021-03-08', 2.5),
-(132, 1, 7, '2021-03-08', 3.5),
-(133, 1, 512, '2021-03-08', 4),
-(134, 1, 5, '2021-03-08', 4),
-(135, 1, 38, '2021-03-08', 4.5),
-(136, 1, 33, '2021-03-08', 1.5),
-(137, 12, 514, '2021-03-08', 1.5),
-(139, 12, 34, '2021-03-08', 4.5),
-(140, 12, 3, '2021-03-08', 3),
-(141, 12, 28, '2021-03-08', 3),
-(142, 12, 31, '2021-03-08', 4.5),
-(143, 12, 16, '2021-03-08', 4),
-(144, 12, 512, '2021-03-08', 4.5),
-(145, 9, 4, '2021-03-08', 2),
-(146, 9, 512, '2021-03-08', 3),
-(147, 9, 31, '2021-03-08', 3.5),
-(148, 12, 36, '2021-03-08', 4.5),
-(149, 12, 25, '2021-03-08', 3),
-(150, 12, 444, '2021-03-10', 2.5),
-(151, 12, 451, '2021-03-10', 3.5),
-(152, 12, 446, '2021-03-10', 3),
-(153, 12, 447, '2021-03-10', 4.5),
-(154, 2, 425, '2021-03-10', 1),
-(155, 2, 429, '2021-03-10', 3.5),
-(156, 2, 432, '2021-03-10', 3.5),
-(157, 2, 15, '2021-03-10', 3),
-(158, 2, 428, '2021-03-10', 3.5),
-(165, 12, 428, '2021-03-11', 4.5),
-(166, 12, 425, '2021-03-11', 3),
-(167, 12, 432, '2021-03-11', 3.5),
-(168, 12, 429, '2021-03-11', 1.5);
+(172, 12, 418, '2021-03-11', 4),
+(173, 12, 419, '2021-03-11', 4.5),
+(174, 12, 424, '2021-03-11', 4.5),
+(175, 12, 425, '2021-03-11', 3),
+(176, 2, 418, '2021-03-11', 3.5),
+(177, 2, 420, '2021-03-11', 3),
+(178, 2, 425, '2021-03-11', 3.5),
+(179, 2, 424, '2021-03-11', 4.5),
+(180, 2, 423, '2021-03-11', 3),
+(181, 2, 419, '2021-03-11', 4.5),
+(182, 9, 422, '2021-03-11', 4),
+(183, 9, 423, '2021-03-11', 2),
+(184, 9, 421, '2021-03-11', 4),
+(185, 9, 419, '2021-03-11', 2),
+(186, 9, 425, '2021-03-11', 4),
+(187, 9, 420, '2021-03-11', 4.5),
+(188, 9, 418, '2021-03-11', 4),
+(189, 9, 424, '2021-03-11', 2),
+(190, 9, 426, '2021-03-11', 1.5),
+(191, 12, 421, '2021-03-11', 4.5),
+(192, 12, 422, '2021-03-11', 2),
+(193, 5, 419, '2021-03-11', 5),
+(194, 5, 423, '2021-03-11', 3.5),
+(195, 5, 420, '2021-03-11', 3),
+(196, 5, 422, '2021-03-11', 3.5);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `auteur`
+-- Structure de la table `auteur`
 --
 
-CREATE TABLE `auteur` (
-  `id_auteur` int(99) NOT NULL,
+DROP TABLE IF EXISTS `auteur`;
+CREATE TABLE IF NOT EXISTS `auteur` (
+  `id_auteur` int(99) NOT NULL AUTO_INCREMENT,
   `nom_auteur` varchar(17) DEFAULT NULL,
   `prenom_auteur` varchar(17) DEFAULT NULL,
-  `img_auteur` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `img_auteur` text,
+  PRIMARY KEY (`id_auteur`)
+) ENGINE=InnoDB AUTO_INCREMENT=480 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `auteur`
+-- Déchargement des données de la table `auteur`
 --
 
 INSERT INTO `auteur` (`id_auteur`, `nom_auteur`, `prenom_auteur`, `img_auteur`) VALUES
@@ -514,57 +452,70 @@ INSERT INTO `auteur` (`id_auteur`, `nom_auteur`, `prenom_auteur`, `img_auteur`) 
 (470, 'Colombier', 'Jean', NULL),
 (471, 'Babylon', 'Blair', NULL),
 (472, 'De', 'Florence', NULL),
-(473, 'Cassidy', 'Carla', NULL);
+(473, 'Cassidy', 'Carla', NULL),
+(474, 'Dellile', 'Claire', NULL),
+(475, 'Yazawa', 'Nao', NULL),
+(476, 'The', 'MCGOKU305', NULL),
+(477, 'Lee', 'Jeannie', NULL),
+(478, 'Ishiyama', 'Kei', NULL),
+(479, 'Canivet-Fovez', 'Chrysoline', NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `client`
+-- Structure de la table `client`
 --
 
-CREATE TABLE `client` (
-  `id_client` int(99) NOT NULL,
+DROP TABLE IF EXISTS `client`;
+CREATE TABLE IF NOT EXISTS `client` (
+  `id_client` int(99) NOT NULL AUTO_INCREMENT,
   `nom_client` varchar(17) NOT NULL,
   `Email` varchar(75) NOT NULL,
-  `adresse` text DEFAULT NULL,
-  `Nb_achat` int(99) DEFAULT 0,
-  `Date_inscription` date DEFAULT NULL,
+  `Nb_achat` int(99) DEFAULT '0',
   `MDP` varchar(20) NOT NULL,
   `nationalite` varchar(50) DEFAULT NULL,
-  `age` int(11) DEFAULT NULL,
-  `sexe` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `type_livre` varchar(50) NOT NULL,
+  PRIMARY KEY (`id_client`),
+  KEY `id_client` (`id_client`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `client`
+-- Déchargement des données de la table `client`
 --
 
-INSERT INTO `client` (`id_client`, `nom_client`, `Email`, `adresse`, `Nb_achat`, `Date_inscription`, `MDP`, `nationalite`, `age`, `sexe`) VALUES
-(1, 'bah', 'Jalil_Jerf@email.com', 'youssef', 1, '2016-02-01', 'youssef', NULL, NULL, NULL),
-(2, 'martinez', 'Haitham_Dadso@email.com', 'LAAAAAATER', 1, '2015-12-31', 'Seeerfie', NULL, NULL, NULL),
-(3, 'diawara', 'Yusuf_Faraby@email.com', 'Boulevard Bouchaib Doukali Num 15, Casablanca', 10, '2016-03-01', 'FarFar', NULL, NULL, NULL),
-(4, 'mamadou', 'Youssef7jabbari@email.com', 'Boulevard El Fida Num 9, Casablanca', 5, '2007-07-07', 'ZarakiDono', NULL, NULL, NULL),
-(5, 'faty', 'Dounia_Nkir@email.com', 'Boulevard Boulevard Num N, Casablanca', 0, '2016-03-21', 'NkirNkir', NULL, NULL, NULL),
-(6, 'alpha', 'Zakaria_Mellouki', 'Boulevard BLVRD Num N, Casablanca', 2, '1995-09-19', 'JESUISZAK', NULL, NULL, NULL),
-(8, 'youssef', 'Youssef.Faraby13', 'youssef', 0, NULL, 'youssef', NULL, NULL, NULL),
-(9, 'youssef faraby', 'youssef@faraby.com', 'boulvar & 1', 2, '2016-04-17', '1234567', NULL, NULL, NULL),
-(10, 'bouhaddioui', 'manar@gmail.com', 'boulvard la resistance ', 1, '2016-04-22', '123456789', NULL, NULL, NULL),
-(11, 'admin', 'admin@biblio.com', 'machi so9ek ^^', 0, '2016-05-03', 'adminDiallo', NULL, NULL, NULL),
-(12, 'diallo', 'diallo@gmail.com', '204 LES CHENES', 2, '2021-02-12', '12345', NULL, NULL, NULL);
+INSERT INTO `client` (`id_client`, `nom_client`, `Email`, `Nb_achat`, `MDP`, `nationalite`, `type_livre`) VALUES
+(1, 'bah', 'Jalil_Jerf@email.com', 1, 'youssef', NULL, ''),
+(2, 'martinez', 'Haitham_Dadso@email.com', 2, 'Seeerfie', NULL, ''),
+(3, 'diawara', 'Yusuf_Faraby@email.com', 10, 'FarFar', 'FR', 'Manga'),
+(4, 'mamadou', 'Youssef7jabbari@email.com', 5, 'ZarakiDono', NULL, ''),
+(5, 'faty', 'Dounia_Nkir@email.com', 3, 'NkirNkir', NULL, ''),
+(6, 'alpha', 'Zakaria_Mellouki', 2, 'JESUISZAK', NULL, ''),
+(8, 'youssef', 'Youssef.Faraby13', 0, 'youssef', NULL, ''),
+(9, 'youssef faraby', 'youssef@faraby.com', 1, '1234567', NULL, ''),
+(10, 'bouhaddioui', 'manar@gmail.com', 1, '123456789', NULL, ''),
+(11, 'admin', 'admin@biblio.com', 0, 'adminDiallo', NULL, ''),
+(12, 'diallo', 'diallo@gmail.com', 2, '12345', NULL, ''),
+(15, 'Mourtalla Diawara', 'faty@gmail.com', 0, 'passer', 'FR', 'Manga'),
+(16, 'DIAWARA12', 'diallo00@gmail.com', 0, '12345', 'ES', 'Informatique'),
+(17, 'Mamadou', 'diallo344@gmail.com', 0, 'passer', 'IT', 'Sciencessociales');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ecrire`
+-- Structure de la table `ecrire`
 --
 
-CREATE TABLE `ecrire` (
+DROP TABLE IF EXISTS `ecrire`;
+CREATE TABLE IF NOT EXISTS `ecrire` (
   `id_auteur` int(99) NOT NULL,
-  `ISBN` int(99) NOT NULL
+  `ISBN` int(99) NOT NULL,
+  KEY `id_auteur` (`id_auteur`,`ISBN`),
+  KEY `ISBN` (`ISBN`),
+  KEY `id_auteur_2` (`id_auteur`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `ecrire`
+-- Déchargement des données de la table `ecrire`
 --
 
 INSERT INTO `ecrire` (`id_auteur`, `ISBN`) VALUES
@@ -858,27 +809,36 @@ INSERT INTO `ecrire` (`id_auteur`, `ISBN`) VALUES
 (469, 584),
 (470, 585),
 (472, 586),
-(473, 587);
+(473, 587),
+(474, 588),
+(475, 589),
+(476, 590),
+(477, 591),
+(478, 592),
+(479, 593);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `livre`
+-- Structure de la table `livre`
 --
 
-CREATE TABLE `livre` (
-  `ISBN` int(99) NOT NULL,
+DROP TABLE IF EXISTS `livre`;
+CREATE TABLE IF NOT EXISTS `livre` (
+  `ISBN` int(99) NOT NULL AUTO_INCREMENT,
   `titre_livre` varchar(100) DEFAULT NULL,
   `type_livre` varchar(200) DEFAULT NULL,
-  `img_livre` longtext DEFAULT NULL,
-  `Paragraphe` longtext DEFAULT NULL,
+  `img_livre` longtext,
+  `Paragraphe` longtext,
   `cat_pay` varchar(50) DEFAULT NULL,
-  `nb_achat` int(10) NOT NULL DEFAULT 0,
-  `note` float NOT NULL DEFAULT 3.5
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `nb_achat` int(10) NOT NULL DEFAULT '0',
+  `note` float NOT NULL DEFAULT '3.5',
+  PRIMARY KEY (`ISBN`),
+  KEY `ISBN` (`ISBN`)
+) ENGINE=InnoDB AUTO_INCREMENT=594 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `livre`
+-- Déchargement des données de la table `livre`
 --
 
 INSERT INTO `livre` (`ISBN`, `titre_livre`, `type_livre`, `img_livre`, `Paragraphe`, `cat_pay`, `nb_achat`, `note`) VALUES
@@ -1003,16 +963,16 @@ INSERT INTO `livre` (`ISBN`, `titre_livre`, `type_livre`, `img_livre`, `Paragrap
 (415, 'Les colères populaires', '', '', '', 'FR', 0, 3.5),
 (416, 'Les Aztèques', '', '', '', 'FR', 0, 3.5),
 (417, 'Outaouais et Laurentides à moto', 'Travel', 'http://books.google.com/books/content?id=3jeoBgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api', 'Ce chapitre Outaouais et Laurentides à moto tiré du guide Ulysse Le Québec à moto contient des circuits en Outaouais et dans les Laurentides et de nombreux renseignements pratiques. Le chapitre Outaouais et Laurentides à moto, rédigé par deux motocyclistes aguerries, propose quelques itinéra...', 'FR', 0, 3.5),
-(418, 'Le Québec à moto', 'Travel', 'http://books.google.com/books/content?id=mMmGBgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api', 'Le Québec à moto, guide pour les amateurs de plein air et motocyclistes. Contient des propositions de circuits à travers la province québécoise et de nombreux renseignements pratiques. Le Québec à moto, rédigé par deux motocyclistes aguerries, propose 45 itinéraires de courte ou longue dur...', 'FR', 0, 3.5),
-(419, 'Montréal-Québec autrement à moto', 'Travel', 'http://books.google.com/books/content?id=vo-oBgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api', 'Ce chapitre Montréal-Québec autrement à moto contient des propositions de circuits entre Montréal et Québec et de nombreux renseignements pratriques. Le chapitre Montréal-Québec autrement à moto, rédigé par deux motocyclistes aguerries, propose quelques itinéraires pour un voyage à moto ...', 'FR', 0, 3.5),
-(420, 'Mauricie et Lanaudière à moto', 'Travel', 'http://books.google.com/books/content?id=T4-oBgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api', 'Ce chapitre Mauricie et Lanaudière à moto tiré du guide Ulysse Le Québec à moto contient des propositions de circuits en Mauricie et dans Lanaudière et de nombreux renseignements pratiques. Le chapitre Mauricie et Lanaudière à moto, rédigé par deux motocyclistes aguerries, propose quelques...', 'FR', 0, 3.5),
-(421, 'Comment paraître intelligent', 'Social Science', 'http://books.google.com/books/content?id=V4FtBgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api', 'À défaut de devenir intelligents, donnons l\'illusion que nous le sommes ! Longtemps l\'intelligence n\'a été qu\'un luxe, voire un vice. Mais la libéralisation de l\'économie, la mise en place d\'une méritocratie et l\'extension de l\'enseignement ont renversé la donne. Ce qui ne servait autrefois ...', 'FR', 0, 3.5),
-(422, 'A un étage de toi', 'Fiction', 'http://books.google.com/books/content?id=XXhVBgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api', 'Pour toutes celles qui restent au bureau tard le soir... Situation professionnelle : admirable Situation physique : taille mannequin Situation sentimentale : déplorable Il est 21 heures, les bureaux sont déserts et pourtant Valentine est toujours là. C’est ce dévouement sans limite qui lui a p...', 'FR', 0, 3.5);
+(418, 'Le Québec à moto', 'Travel', 'http://books.google.com/books/content?id=mMmGBgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api', 'Le Québec à moto, guide pour les amateurs de plein air et motocyclistes. Contient des propositions de circuits à travers la province québécoise et de nombreux renseignements pratiques. Le Québec à moto, rédigé par deux motocyclistes aguerries, propose 45 itinéraires de courte ou longue dur...', 'FR', 3, 3.5),
+(419, 'Montréal-Québec autrement à moto', 'Travel', 'http://books.google.com/books/content?id=vo-oBgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api', 'Ce chapitre Montréal-Québec autrement à moto contient des propositions de circuits entre Montréal et Québec et de nombreux renseignements pratriques. Le chapitre Montréal-Québec autrement à moto, rédigé par deux motocyclistes aguerries, propose quelques itinéraires pour un voyage à moto ...', 'FR', 4, 3.5),
+(420, 'Mauricie et Lanaudière à moto', 'Travel', 'http://books.google.com/books/content?id=T4-oBgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api', 'Ce chapitre Mauricie et Lanaudière à moto tiré du guide Ulysse Le Québec à moto contient des propositions de circuits en Mauricie et dans Lanaudière et de nombreux renseignements pratiques. Le chapitre Mauricie et Lanaudière à moto, rédigé par deux motocyclistes aguerries, propose quelques...', 'FR', 3, 3.5),
+(421, 'Comment paraître intelligent', 'Social Science', 'http://books.google.com/books/content?id=V4FtBgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api', 'À défaut de devenir intelligents, donnons l\'illusion que nous le sommes ! Longtemps l\'intelligence n\'a été qu\'un luxe, voire un vice. Mais la libéralisation de l\'économie, la mise en place d\'une méritocratie et l\'extension de l\'enseignement ont renversé la donne. Ce qui ne servait autrefois ...', 'FR', 2, 3.5),
+(422, 'A un étage de toi', 'Fiction', 'http://books.google.com/books/content?id=XXhVBgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api', 'Pour toutes celles qui restent au bureau tard le soir... Situation professionnelle : admirable Situation physique : taille mannequin Situation sentimentale : déplorable Il est 21 heures, les bureaux sont déserts et pourtant Valentine est toujours là. C’est ce dévouement sans limite qui lui a p...', 'FR', 3, 3.5);
 INSERT INTO `livre` (`ISBN`, `titre_livre`, `type_livre`, `img_livre`, `Paragraphe`, `cat_pay`, `nb_achat`, `note`) VALUES
-(423, 'Esprit mai 2014 - Les convertis, avenir de la reli', 'Social Science', 'http://books.google.com/books/content?id=3w63BgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api', 'Qui sont les convertis ? Que signifie aujourd\'hui se convertir, dans un âge que l\'on qualifie de \" séculier \" ? La conversion a une signification sociale, philosophique, mais recouvre aussi des enjeux concrets pour différentes religions : l\'église catholique cherche à se \" moderniser \" et à en...', 'FR', 0, 3.5),
-(424, 'Dictionnaire amoureux du journalisme', 'Reference', 'http://books.google.com/books/content?id=tFZtBgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api', 'Serge July décline en 26 lettres sa passion pour \"le plus beau métier du monde\". Serge July décline en 26 lettres sa passion pour \"le plus beau métier du monde\". \" Citizen July \" est partie intégrante de notre mythologie. Fondateur et patron emblématique de Libération, pendant 33 ans il est a...', 'FR', 0, 3.5),
-(425, 'Je suis un dragon', 'Fiction', 'http://books.google.com/books/content?id=Bc3GBQAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api', '\" On s\'habitue à être surhumain, et très vite on comprend que ce n\'est qu\'une des multiples façons que la vie a trouvées pour nous dire qu\'on est un inadapté. \" Margot est une jeune orpheline timide et solitaire. Un jour, elle découvre sa véritable nature : elle est douée de capacités extr...', 'FR', 2, 3.5),
-(426, 'Images', '', '', '', 'FR', 0, 3.5),
+(423, 'Esprit mai 2014 - Les convertis, avenir de la reli', 'Social Science', 'http://books.google.com/books/content?id=3w63BgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api', 'Qui sont les convertis ? Que signifie aujourd\'hui se convertir, dans un âge que l\'on qualifie de \" séculier \" ? La conversion a une signification sociale, philosophique, mais recouvre aussi des enjeux concrets pour différentes religions : l\'église catholique cherche à se \" moderniser \" et à en...', 'FR', 3, 3.5),
+(424, 'Dictionnaire amoureux du journalisme', 'Reference', 'http://books.google.com/books/content?id=tFZtBgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api', 'Serge July décline en 26 lettres sa passion pour \"le plus beau métier du monde\". Serge July décline en 26 lettres sa passion pour \"le plus beau métier du monde\". \" Citizen July \" est partie intégrante de notre mythologie. Fondateur et patron emblématique de Libération, pendant 33 ans il est a...', 'FR', 3, 3.5),
+(425, 'Je suis un dragon', 'Fiction', 'http://books.google.com/books/content?id=Bc3GBQAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api', '\" On s\'habitue à être surhumain, et très vite on comprend que ce n\'est qu\'une des multiples façons que la vie a trouvées pour nous dire qu\'on est un inadapté. \" Margot est une jeune orpheline timide et solitaire. Un jour, elle découvre sa véritable nature : elle est douée de capacités extr...', 'FR', 5, 3.5),
+(426, 'Images', '', '', '', 'FR', 1, 3.5),
 (427, 'Magazines, Travel, and Middlebrow Culture', 'Canadian periodicals', 'http://books.google.com/books/content?id=ZOgWDgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api', 'A century ago, the golden age of magazine publishing coincided with the beginning of a golden age of travel. Images of speed and flight dominated the pages of the new mass-market periodicals. Magazines, Travel, and Middlebrow Culture centres on Canada, where commercial magazines began to flourish in...', 'FR', 0, 3.5),
 (428, 'Le guide pratique iPad et iOS 8', 'Apple iPad (ordinateur)', 'http://books.google.com/books/content?id=TGPLBgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api', 'La 4ème de couverture indique : \"Avec un iPad au bout des doigts, c\'est sûr, on entre dans un nouveau monde, ludique et stimulant. Même votre ordi portable ne peut pas lutter, et d\'ailleurs, on vous parie que vous allez de plus en plus souvent le bouder. À la maison, votre nouveau réflexe, ce s...', 'FR', 2, 3.5),
 (429, 'Les meilleurs élèves', 'Fiction', 'http://books.google.com/books/content?id=0qEdBQAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api', 'Erin Brokovitch au masculin: lorsque Sean découvre le scandale que cache l\'école huppée et élitiste de son fils, il part en croisade contre un système opaque, et beaucoup plus dangereux qu\'il n\'y paraît. Erin Brokovitch au masculin: lorsque Sean découvre le scandale que cache l\'école huppée...', 'FR', 2, 3.5),
@@ -1039,14 +999,14 @@ INSERT INTO `livre` (`ISBN`, `titre_livre`, `type_livre`, `img_livre`, `Paragrap
 (450, 'HEALTH TECHNOLOGY ASSESSMENT. Governance tecnologica per la sanità. Prefazione di Ranieri Guerra', 'Medical', 'http://books.google.com/books/content?id=AUPZDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api', 'L’Health Technology Assessment è una logica al servizio della governance sanitaria: un modello condiviso di valutazione del valore che le tecnologie sanitarie offrono alla prevenzione, diagnosi, cura e riabilitazione sanitaria. Il testo ripercorre i modelli proposti dagli scholar, descrivendo le ...', 'FR', 0, 3.5),
 (451, 'Adaptable technologies. Le architetture di Thomas Spiegelhalter', 'Architecture', 'http://books.google.com/books/content?id=mmUQEAAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api', '88.2', 'FR', 1, 3.5),
 (452, 'Il fattore T', 'Business & Economics', 'http://books.google.com/books/content?id=Rb3ADwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api', 'Nell’economia del Novecento la tecnologia – «fattore T» – è il risultato di un mix sapiente di capitale e lavoro, costruito in maniera analogica, meccanica, deterministica. Negli anni Settanta questa miscela sfugge al controllo umano. Un manipolo di informatici californiani lavora a una vis...', 'FR', 0, 3.5),
-(453, 'Tecnologia Canina. K-9 Technology. Vol. 2', 'Pets', 'http://books.google.com/books/content?id=QWGkDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api', 'Questo è il secondo volume digitale di un\'opera destinata ai cinofili: persone che vivono nel mondo dei cani e delle razze canine e che si appassionano ad esse. L\'e-book raccoglie schemi, diagrammi, definizioni, classificazioni, elenchi e tavole sinottiche attinenti il mondo della «tecnologia cani...', 'FR', 0, 3.5),
-(454, 'Tecnologia Canina. K-9 Technology', 'Pets', 'http://books.google.com/books/content?id=kWKkDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api', 'Questo è il primo volume digitale di un\'opera destinata ai cinofili: persone che vivono nel mondo dei cani e delle razze canine e che si appassionano ad esse. L\'e-book raccoglie schemi, diagrammi, definizioni, classificazioni, elenchi e tavole sinottiche attinenti il mondo della «tecnologia canina...', 'FR', 0, 3.5),
+(453, 'Tecnologia Canina. K-9 Technology. Vol. 2', 'Pets', 'http://books.google.com/books/content?id=QWGkDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api', 'Questo è il secondo volume digitale di un\'opera destinata ai cinofili: persone che vivono nel mondo dei cani e delle razze canine e che si appassionano ad esse. L\'e-book raccoglie schemi, diagrammi, definizioni, classificazioni, elenchi e tavole sinottiche attinenti il mondo della «tecnologia cani...', 'FR', 1, 3.5),
+(454, 'Tecnologia Canina. K-9 Technology', 'Pets', 'http://books.google.com/books/content?id=kWKkDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api', 'Questo è il primo volume digitale di un\'opera destinata ai cinofili: persone che vivono nel mondo dei cani e delle razze canine e che si appassionano ad esse. L\'e-book raccoglie schemi, diagrammi, definizioni, classificazioni, elenchi e tavole sinottiche attinenti il mondo della «tecnologia canina...', 'FR', 1, 3.5),
 (455, 'Colloqui.AT.e 2016', 'Architecture', 'http://books.google.com/books/content?id=5soODgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api', '“Là dove la tecnica è superata inizia l’architettura.” LUDWIG MIES VAN DER ROHE “La rivoluzione dello spirito artistico ci ha dato la conoscenza elementare, la rivoluzione tecnica ci ha dato lo strumento per la nuova forma.” WALTER GROPIUS L’incontro annuale dell’associazione ArTec s...', 'FR', 0, 3.5),
 (456, 'The Technological Design of Resilient Landscape. Il progetto tecnologico del paesaggio resiliente', 'Architecture', 'http://books.google.com/books/content?id=VkZYCwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api', '86.1.1', 'FR', 0, 3.5),
 (457, 'Multidisciplinary Project Limit Of Performance And Technology', 'Technology & Engineering', 'http://books.google.com/books/content?id=jD3wAwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api', 'To date, the global scenario shows a development and technological progress sterile and mired in the swamps from which he can no longer go out. Excluding the telecommunications sector and that of the devices associated with it that are expanding, especially for the development of older devices, and ...', 'FR', 0, 3.5),
 (458, 'Fondamenti di Informatica e di Information Technology', '', 'http://books.google.com/books/content?id=ihaDxgEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api', 'Questo ebook ha l\'obiettivo di assicurare al fruitore una adeguata padronanza dei contenuti di informatica attraverso la conoscenza della parte hardware degli elaboratori elettronici, nonché attraverso l\'acquisizione di specifiche applicazioni software. Nello specifico gli obiettivi del corso posso...', 'FR', 0, 3.5),
 (459, 'Health Technology Assessment. Governance tecnologica per la sanità', 'Business & Economics', 'http://books.google.com/books/content?id=HueoxAEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api', '', 'FR', 0, 3.5),
-(460, 'Smart City. People, technology, materials', 'Social Science', 'http://books.google.com/books/content?id=6bD9ygEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api', '', 'FR', 0, 3.5),
+(460, 'Smart City. People, technology, materials', 'Social Science', 'http://books.google.com/books/content?id=6bD9ygEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api', '', 'FR', 1, 3.5),
 (461, 'Il nonno e il nucleare. Nuclear technology for dummies', '', 'http://books.google.com/books/content?id=C0q5swEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api', '', 'FR', 0, 3.5),
 (462, 'Cataclysms & Reconstruction. Science & Technology', 'Social Science', 'http://books.google.com/books/content?id=QtVIwAEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api', '', 'FR', 0, 3.5),
 (463, 'Information technology for the law', 'Law', 'http://books.google.com/books/content?id=OUZBDwAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api', '', 'FR', 0, 3.5),
@@ -1174,90 +1134,27 @@ INSERT INTO `livre` (`ISBN`, `titre_livre`, `type_livre`, `img_livre`, `Paragrap
 (584, 'Et elle avala tous les nuages', 'Fiction', 'http://books.google.com/books/content?id=uBwSEAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api', 'Lorsque Marie rencontre Jean, assis sous des arbres centenaires déployant leurs branches, telles les ailes d’un ange protecteur, il se cache derrière son roman, rougissant. Entre ces deux âmes, une amitié naîtra à travers leurs échanges littéraires et leur foi. Ces deux âmes celtiques tra...', 'FR', 0, 3.5),
 (585, 'Les Frères Romance', 'Fiction', 'http://books.google.com/books/content?id=4wuD9XqkL1cC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api', 'L\'histoire commence par une course poursuite sur la Nationale 20, entre Paris et Limoges. Pour montrer à Julien, son frère cadet, la puissance de son nouveau \" 40 tonnes \", Alain Romance dépasse dangereusement plusieurs poids lourds et oblige le dernier à sortir de la route. Rattrapé quelques h...', 'FR', 0, 3.5),
 (586, 'Romance américaine', 'Fiction', 'http://books.google.com/books/content?id=VPzwAwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api', 'Léa, photographe lyonnaise, élève seule ses trois enfants. Au cours d\'un reportage photo dans le Wyoming (États-Unis), elle rencontre un séduisant vétérinaire, Tom, cow-boy solitaire aux manières rustres mais au charme irrésistible. L\'amour va s\'immiscer dans leurs vies et faire voler en é...', 'FR', 0, 3.5),
-(587, 'Le meilleur de la romance suspense', 'Fiction', 'http://books.google.com/books/content?id=hjTVAwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api', 'Le meilleur de la romance suspense : un recueil de 3 romans. Trois histoires palpitantes entre enquêtes passionnantes et intrigue sentimentale. Disparu dans la nuit, Carla Cassidy Theresa Matthews est folle d’angoisse. La nuit tombe et son fils, Tim, n’est toujours pas rentré de l’école. Au...', 'FR', 0, 3.5);
+(587, 'Le meilleur de la romance suspense', 'Fiction', 'http://books.google.com/books/content?id=hjTVAwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api', 'Le meilleur de la romance suspense : un recueil de 3 romans. Trois histoires palpitantes entre enquêtes passionnantes et intrigue sentimentale. Disparu dans la nuit, Carla Cassidy Theresa Matthews est folle d’angoisse. La nuit tombe et son fils, Tim, n’est toujours pas rentré de l’école. Au...', 'FR', 0, 3.5),
+(588, 'CÅ“ur manga', 'Fiction', 'http://books.google.com/books/content?id=dQIKEAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api', 'Les relations humaines ne sont pas la spÃ©cialitÃ© de Flo. Solitaire, cultivant son indÃ©pendance et son look atypique, elle est surnommÃ©e Â« Grumpy Â» par sa sÅ“ur â€“ parce que sourire, elle ne sait pas faire. Dâ€™ailleurs, personne ne la comprend vraiment. Le seul endroit oÃ¹ elle se sent bien, ...', 'FR', 0, 3.5),
+(589, 'Manga Drawing Deluxe', 'Art', 'http://books.google.com/books/content?id=60XnDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api', 'Renowned Japanese manga artist, international instructor, and illustrator of the Wedding Peach series Nao Yazawa guides you step by step through all phases of manga drawing, from developing characters to creating a story line and story boards. With this detailed guide, learn every aspect of how to d...', 'FR', 0, 3.5),
+(590, 'GOOD THING\'S & GREAT THING\'S THE MANGA', 'Comics & Graphic Novels', 'http://books.google.com/books/content?id=-AzaDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api', 'Good Thing\'s & Great Thing\'s The Manga Is a American Slice Of Life Dark Comedy Seinen manga Written and Created By Manga Artist (Mangaka) MCGOKU305 Also Known As MCGOKU305 The Great This Manga Is The Debut Manga By MCGOKU305 And It Was Originally Written and Released By MCGOKU305 From January 10 201...', 'FR', 0, 3.5),
+(591, 'Drawing: Manga', 'Art', 'http://books.google.com/books/content?id=XlnBDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api', 'With Drawing: Manga, develop drawing and storytelling skills to create your own manga book! In Drawing: Manga, accomplished artist Jeannie Lee shares her artistic insights and techniques for creating captivating manga artwork and stories. From information on character and story development to an exp...', 'FR', 0, 3.5),
+(592, 'Grimms Manga L\'intÃ©grale', 'Comics & Graphic Novels', 'http://books.google.com/books/content?id=DsVjAgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api', 'Kei Ishiyama, lâ€™auteure, ne se contente pas dâ€™adapter ces rÃ©cits mais sâ€™en inspire pour proposer ses propres poÃ©sies narratives... et fait preuve dâ€™une imagination pour le moins dÃ©bordante ! Le loup du Petit Chaperon rouge reÃ§oit ainsi les conseils avisÃ©s dechÃ¨vres avant de deviser sur...', 'FR', 0, 3.5),
+(593, 'Le manga', 'Comics & Graphic Novels', 'http://books.google.com/books/content?id=3MqgAgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api', 'Des origines Ã  nos jours, de l\'art de l\'estampe au cinÃ©ma d\'animation, du Japon au reste du monde, cet ouvrage pÃ©dagogique retrace la fabuleuse aventure de la bande dessinÃ©e japonaise. VÃ©ritable panorama chronologique, ce guide rend compte des diffÃ©rents aspects du dessin de manga : historique...', 'FR', 0, 3.5);
 
 --
--- Indexes for dumped tables
---
-
---
--- Indexes for table `achat`
---
-ALTER TABLE `achat`
-  ADD PRIMARY KEY (`id_achat`),
-  ADD KEY `id_client` (`id_client`,`ISBN`,`id_achat`),
-  ADD KEY `ISBN` (`ISBN`),
-  ADD KEY `date_emprunt` (`date_achat`);
-
---
--- Indexes for table `auteur`
---
-ALTER TABLE `auteur`
-  ADD PRIMARY KEY (`id_auteur`);
-
---
--- Indexes for table `client`
---
-ALTER TABLE `client`
-  ADD PRIMARY KEY (`id_client`),
-  ADD KEY `id_client` (`id_client`);
-
---
--- Indexes for table `ecrire`
---
-ALTER TABLE `ecrire`
-  ADD KEY `id_auteur` (`id_auteur`,`ISBN`),
-  ADD KEY `ISBN` (`ISBN`),
-  ADD KEY `id_auteur_2` (`id_auteur`);
-
---
--- Indexes for table `livre`
---
-ALTER TABLE `livre`
-  ADD PRIMARY KEY (`ISBN`),
-  ADD KEY `ISBN` (`ISBN`);
-
---
--- AUTO_INCREMENT for dumped tables
+-- Contraintes pour les tables déchargées
 --
 
 --
--- AUTO_INCREMENT for table `achat`
---
-ALTER TABLE `achat`
-  MODIFY `id_achat` int(99) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=169;
-
---
--- AUTO_INCREMENT for table `auteur`
---
-ALTER TABLE `auteur`
-  MODIFY `id_auteur` int(99) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=474;
-
---
--- AUTO_INCREMENT for table `client`
---
-ALTER TABLE `client`
-  MODIFY `id_client` int(99) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-
---
--- AUTO_INCREMENT for table `livre`
---
-ALTER TABLE `livre`
-  MODIFY `ISBN` int(99) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=588;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `achat`
+-- Contraintes pour la table `achat`
 --
 ALTER TABLE `achat`
   ADD CONSTRAINT `achat_ibfk_1` FOREIGN KEY (`id_client`) REFERENCES `client` (`id_client`),
   ADD CONSTRAINT `achat_ibfk_2` FOREIGN KEY (`ISBN`) REFERENCES `livre` (`ISBN`);
 
 --
--- Constraints for table `ecrire`
+-- Contraintes pour la table `ecrire`
 --
 ALTER TABLE `ecrire`
   ADD CONSTRAINT `ecrire_ibfk_1` FOREIGN KEY (`id_auteur`) REFERENCES `auteur` (`id_auteur`),

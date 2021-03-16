@@ -1,37 +1,8 @@
 <?php
-session_start();
-
-
-include("modele/Client.php");
-
-if(!isset($_SESSION['connecter'])) 
-  $_SESSION['connecter']=false; 
-
-
-if(!empty($_POST['username']) AND !empty($_POST['password']) AND !empty($_POST['nom']) AND !empty($_POST['datenaissance']) AND !empty($_POST['addresse'])){
-
-  $client=new Client();
-    try
-    {
-        if(1)
-        {
-            $client->inscription($_POST['nom'],$_POST['username'],$_POST['datenaissance'],$_POST['addresse'],$_POST['password']);
-        }
-        else
-        {
-            throw new Exception('Un probleme est produit lors de votre inscription!!! Merci de ressayer plus tard ^_^');
-        }
-    }
-    catch(Exception $e)
-    {
-        echo $e->getMessage();
-    }
-}
-
+   session_start();
+   include("traitement.php");
+   echo $erreur;
 ?>
-
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,101 +26,78 @@ if(!empty($_POST['username']) AND !empty($_POST['password']) AND !empty($_POST['
 <div class="col-lg-6">
   <ul class="nav nav-pills">
       <li><a href="index.php">Acceuil</a></li>
-       <?php 
-
-  if(!$_SESSION['connecter']){
-  ?>
+       
       <li class="active"><a href="inscription.php">Inscription</a></li>
-    <?php
-  }
-    ?> 
   </ul>
 </div>
-
-
-
 <div class="col-lg-6">
- <div id="iscri">
-  <?php 
-  if(!$_SESSION['connecter']){
-  ?>
-        <form method="post" action="index.php" > 
-            <input type="text" name="email" placeholder="Email ou Username" required />
-            <input type="password" name="pwd" placeholder="Password" required />
-            <input type="submit" value="Login"/>
-        </form>  
-      
-    <?php
-  }else{
-    ?> 
-
- <div class="col-lg-7">
- </div>
- <div class="col-lg-5">
- <ul class="nav nav-pills">
-      <li  class="active"><a href="profil.php" >Profile</a></li>
-      <li><a href="index.php?d=true" >Deconnecter</a></li>
- 
-  </ul>
-
-</div>
-
-<?php
-
-}
-
-?>
-
+    <div id="iscri">
+      <form method="post" action="loginCheck.php" > 
+          <input type="text" name="email" placeholder="Email ou Username" required />
+          <input type="password" name="pwd" placeholder="Password" required />
+          <input type="submit" value="Login"/>
+      </form>  
     </div> 
 </div>
-
-
 <div class="row">
-
-
-
   <div class="col-lg-12">
+    <div class="panel panel-success panel1" >
+      <div class="panel-heading">Inscription</div>
+      <div class="panel-body">
+        <fieldset>
+    	     <legend><b>Inscripton Individuelle</b></legend>
+            <form action="#" method="post" enctype="multipart/form-data">
+        		<table class="login_table">
+              <tr>
+                <td>Erreur</td>
+                <?php if(isset($erreur)) {?>
+                <td><?php echo $erreur; ?></td>
+                <?php  }  ?>
+              </tr>
+        		<tr>
+        		<td>Email<span>*</span></td>
+        		<td><input type="text" name="username" id="username" placeholder="email or username" required></td>
+        		</tr>
+        		<tr>
+        		<td>Pasword<span>*</span></td>
+        		<td><input type="password" name="password" id="password" placeholder="password" required></td>
+        		</tr>
+        		<tr>
+        		<td>Nom<span>*</span></td>
+        		<td><input type="text" name="nom" id="nom" placeholder="Nom" required></td>
+        		</tr>
+            <tr>
+            <td>Nationalite<span>*</span></td>
+            <td>
+              <select class="form-control" id="country" name="nationalite">
+                  <option value="FR">France</option>
+                  <option value="IT">Italy</option>
+                  <option value="SN">Senegal</option>
+                  <option value="ES">Spain</option>
+                  <option value="JPN">Japon</option>
+              </select>
+            </td>
+            </tr>
+            <tr>
+            <td>Type de de livre<span>*</span></td>
+            <td><select class="form-control" id="type_livre" name="type_livre">
+              <?php if (isset($_SESSION['type_livre'])) { ?>
+                <?php foreach($_SESSION['type_livre'] as $key => $value) { ?>
+                <option value="<?php echo $value[0]; ?>"><?php echo $value[0]; ?></option>
+                <?php } ?>
+              <?php } ?>
+            </select></td>
+            </tr>
+    		    <tr>
+    		      <td></td>
+    		      <td><input type="submit" name="inscription" value="inscription"/></td>
+    		    </tr>
+    		  </table>
+    	   </form>
 
-
-
-
-<div class="panel panel-success panel1" >
-  <div class="panel-heading">Inscription</div>
-  <div class="panel-body">
-    <fieldset>
-	<legend><b>Inscripton Individuelle</b></legend>
-
-
-    	<form action="inscription.php" method="post">
-		<table class="login_table">
-		<tr>
-		<td>Email<span>*</span></td>
-		<td><input type="text" name="username" id="username" placeholder="email or username" required></td>
-		</tr>
-		<tr>
-		<td>Pasword<span>*</span></td>
-		<td><input type="password" name="password" id="password" placeholder="password" required></td>
-		</tr>
-		<tr>
-		<td>Nom<span>*</span></td>
-		<td><input type="text" name="nom" id="nom" placeholder="Nom" required></td>
-		</tr>
-		<tr>
-		<td>Date-naissance<span>*</span></td>
-		<td><input type="date" name="datenaissance" id="datenaissance" placeholder="AAAA-MM-JJ" required></td>
-		</tr>
-		<tr>
-		<td>adresse <span>*</span></td>
-		<td><input type="text" name="addresse" id="addresse" placeholder="Adresse" required></td>
-		</tr>
-		<tr>
-		<td> <small>Keep Me</small><input type="checkbox" name="keep" value="true"></td>
-		<td><input type="submit" value="Inscription"/><input type="reset" value="repeter"/></td>
-		</tr>
-		</table>
-	</form>
-
-</fieldset>  
+        </fieldset>  
+      </div>
+    </div>
   </div>
 </div>
 <?php
