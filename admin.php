@@ -4,9 +4,10 @@
 // {
 //     header("Location: login.php");
 //     die();
+  $myPDO = new PDO('mysql:host=localhost;dbname=biblio', 'root', '');
 // }?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -201,7 +202,7 @@ a{
                 </thead>
                 <tbody>
                     <?php 
-                    $myPDO = new PDO('mysql:host=localhost;dbname=biblio_v1', 'root', '');
+                    
                     $query = "SELECT DISTINCT * 
                     FROM achat a
                     JOIN client c
@@ -256,7 +257,7 @@ a{
                 </thead>
                 <tbody>
                     <?php 
-                    $myPDO = new PDO('mysql:host=localhost;dbname=biblio_v1', 'root', '');
+                    
                     $query = "SELECT DISTINCT * 
                     FROM livre l
                     JOIN ecrire e 

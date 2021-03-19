@@ -1,7 +1,7 @@
 <?php
    session_start();
    include("traitement.php");
-   echo $erreur;
+   
 ?>
 <!DOCTYPE html>
 <html>
@@ -46,13 +46,11 @@
       <div class="panel-body">
         <fieldset>
     	     <legend><b>Inscripton Individuelle</b></legend>
-            <form action="#" method="post" enctype="multipart/form-data">
+            <form action="inscription.php" method="post" enctype="multipart/form-data">
         		<table class="login_table">
               <tr>
                 <td>Erreur</td>
-                <?php if(isset($erreur)) {?>
-                <td><?php echo $erreur; ?></td>
-                <?php  }  ?>
+                <td></td>
               </tr>
         		<tr>
         		<td>Email<span>*</span></td>

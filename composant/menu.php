@@ -1,13 +1,16 @@
 <?php 
+    if (!isset($_SESSION['connecter'])) {
+      header("Location: index.php");
+    }
     include('modele/connexion.php');
-    $sql="SELECT DISTINCT type_livre FROM livre WHERE type_livre != '' LIMIT 10";
+    $sql="SELECT DISTINCT type_livre FROM livre WHERE type_livre != '' LIMIT 15";
 
 
     $query=$myPDO->prepare($sql);
     $query->execute(array());
     $_SESSION['type_livre']= $query->fetchAll();
     //print_r($_SESSION['type_livre']);
-    $sql1="SELECT DISTINCT nom_auteur, prenom_auteur FROM auteur LIMIT 10";
+    $sql1="SELECT DISTINCT nom_auteur, prenom_auteur FROM auteur LIMIT 15";
 
     $query1=$myPDO->prepare($sql1);
     $query1->execute(array());

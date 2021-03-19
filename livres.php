@@ -1,4 +1,5 @@
 <?php 
+	 require_once('modele/connexion.php');
 	//On determine sur quelle page on se trouve
 	if (isset($_GET['page']) && !empty($_GET['page'])) {
 		$currentPage = (int) strip_tags($_GET['page']);
@@ -7,23 +8,29 @@
 		$currentPage= 1;
 	}
 
-	//On determine le nombre total de livres
-	$sql1="SELECT count(*) as nb_livres
+	
+	if (isset($_GET['chercher'])) {
+		$recherche = '%'.$_GET['chercher'].'%';
+	}else{
+		$recherche = '%%';
+	}
+
+	//On determine le nombre total de livres on na limiter a 100 pour ne pas trop charger la page
+	$sql1="SELECT DISTINCT * 
 		FROM livre l
 		JOIN ecrire e 
 		ON e.ISBN = l.ISBN 
 		JOIN auteur a 
-		ON a.id_auteur = e.id_auteur";
+		ON a.id_auteur = e.id_auteur LIMIT 150";
 
 
 	$query1=$myPDO->prepare($sql1);
     $query1->execute();
-    $resulat = $query1->fetch();
-
-    $nb_livres = (int) $resulat['nb_livres'];
+    $resulat = count($query1->fetchAll());
+    $nb_livres = (int) $resulat;
     
     //On determine le nombre de livre par page
-    $parpage = 12;
+    $parpage = 9;
 	
     //On determine le nombre total par page
     $pages = ceil($nb_livres/$parpage);
@@ -32,14 +39,9 @@
     //Calcul du premier article de la page
     $premier= ($currentPage * $parpage) - $parpage;
 
-    require_once('modele/connexion.php');
+   
 
-    	$recherche = '%%';
-	
-	
-		if (isset($_GET['chercher'])) {
-			$recherche = '%'.$_GET['chercher'].'%';
-		}
+    	
 		$sql="SELECT DISTINCT * 
 		FROM livre l
 		JOIN ecrire e 
@@ -75,13 +77,13 @@
 	 		foreach ($livres as $livre) {
 	 	?>
 		<div class="col-md-4">
-		    <div class="thumbnail" style="height:80vh;">
-		      <a href="consultation.php?ISBN=<?php echo $livre['ISBN'] ?>">
-			  <img src="<?php echo $livre['img_livre']; ?>" alt="Lights" style="width:100%;">
-			  <div class="caption">
-         	 		<p><?php echo $livre['titre_livre']; ?></p>
-        		  </div>
-		      </a>
+		    <div class="thumbnail" style="height:70vh;">
+		    	<a href="consultation.php?ISBN=<?php echo $livre['ISBN'] ?>">
+			  		<img src="<?php echo $livre['img_livre']; ?>" alt="Lights" style="height:100%;">
+			  		<!-- <div class="caption">
+         	 			<p><?php //echo $livre['titre_livre']; ?></p>
+        			</div> -->
+		      	</a>
 		    </div>
 		</div>
 	  <?php } ?>
@@ -90,10 +92,10 @@
 		<nav>
 		  	<ul class="pager">
 		  		<li class="<?= ($currentPage == 1) ?"disabled": "" ?>">
-		  			<a href="index.php?page=<?= $currentPage-1 ?>>" class="page-link">Prcédente</a>
+		  			<a href="index.php?page=<?= $currentPage-1 ?>" class="page-link">Prcédente</a>
 		  		</li>
 		  		<?php for ($page=1; $page <= $pages ; $page++): ?>
-		  		<li class="<?= ($currentPage == $page) ?"active": "" ?>">
+		  		<li class="<?= ($currentPage == $page) ? "active": "" ?>">
 		  			<a href="index.php?page=<?= $page ?>" class="page-link"><?= $page ?></a>
 		  		</li>
 		  		<?php endfor ?>

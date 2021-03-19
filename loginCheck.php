@@ -41,7 +41,6 @@ if(!empty($_POST['email']) AND !empty($_POST['pwd']))
         $_SESSION['Email']=$client_connecter['Email'];
         $_SESSION['adresse']=$client_connecter['adresse'];
         $_SESSION['MDP']=$client_connecter['MDP'];
-        $_SESSION['Date_inscription']=$client_connecter['Date_inscription'];
       }
       header("location: myprofil.php");
     }

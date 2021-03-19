@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mar. 16 mars 2021 à 13:51
+-- Généré le : ven. 19 mars 2021 à 11:26
 -- Version du serveur :  5.7.31
 -- Version de PHP : 7.4.9
 
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `achat` (
   KEY `id_client` (`id_client`,`ISBN`,`id_achat`),
   KEY `ISBN` (`ISBN`),
   KEY `date_emprunt` (`date_achat`)
-) ENGINE=InnoDB AUTO_INCREMENT=197 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=198 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `achat`
@@ -69,7 +69,8 @@ INSERT INTO `achat` (`id_achat`, `id_client`, `ISBN`, `date_achat`, `evaluer`) V
 (193, 5, 419, '2021-03-11', 5),
 (194, 5, 423, '2021-03-11', 3.5),
 (195, 5, 420, '2021-03-11', 3),
-(196, 5, 422, '2021-03-11', 3.5);
+(196, 5, 422, '2021-03-11', 3.5),
+(197, 12, 420, '2021-03-18', 3);
 
 -- --------------------------------------------------------
 
@@ -475,6 +476,7 @@ CREATE TABLE IF NOT EXISTS `client` (
   `MDP` varchar(20) NOT NULL,
   `nationalite` varchar(50) DEFAULT NULL,
   `type_livre` varchar(50) NOT NULL,
+  `age` int(11) NOT NULL,
   PRIMARY KEY (`id_client`),
   KEY `id_client` (`id_client`)
 ) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
@@ -483,21 +485,21 @@ CREATE TABLE IF NOT EXISTS `client` (
 -- Déchargement des données de la table `client`
 --
 
-INSERT INTO `client` (`id_client`, `nom_client`, `Email`, `Nb_achat`, `MDP`, `nationalite`, `type_livre`) VALUES
-(1, 'bah', 'Jalil_Jerf@email.com', 1, 'youssef', NULL, ''),
-(2, 'martinez', 'Haitham_Dadso@email.com', 2, 'Seeerfie', NULL, ''),
-(3, 'diawara', 'Yusuf_Faraby@email.com', 10, 'FarFar', 'FR', 'Manga'),
-(4, 'mamadou', 'Youssef7jabbari@email.com', 5, 'ZarakiDono', NULL, ''),
-(5, 'faty', 'Dounia_Nkir@email.com', 3, 'NkirNkir', NULL, ''),
-(6, 'alpha', 'Zakaria_Mellouki', 2, 'JESUISZAK', NULL, ''),
-(8, 'youssef', 'Youssef.Faraby13', 0, 'youssef', NULL, ''),
-(9, 'youssef faraby', 'youssef@faraby.com', 1, '1234567', NULL, ''),
-(10, 'bouhaddioui', 'manar@gmail.com', 1, '123456789', NULL, ''),
-(11, 'admin', 'admin@biblio.com', 0, 'adminDiallo', NULL, ''),
-(12, 'diallo', 'diallo@gmail.com', 2, '12345', NULL, ''),
-(15, 'Mourtalla Diawara', 'faty@gmail.com', 0, 'passer', 'FR', 'Manga'),
-(16, 'DIAWARA12', 'diallo00@gmail.com', 0, '12345', 'ES', 'Informatique'),
-(17, 'Mamadou', 'diallo344@gmail.com', 0, 'passer', 'IT', 'Sciencessociales');
+INSERT INTO `client` (`id_client`, `nom_client`, `Email`, `Nb_achat`, `MDP`, `nationalite`, `type_livre`, `age`) VALUES
+(1, 'bah', 'Jalil_Jerf@email.com', 1, 'youssef', NULL, '', 0),
+(2, 'martinez', 'Haitham_Dadso@email.com', 2, 'Seeerfie', NULL, '', 0),
+(3, 'diawara', 'Yusuf_Faraby@email.com', 10, 'FarFar', 'FR', 'Manga', 0),
+(4, 'mamadou', 'Youssef7jabbari@email.com', 5, 'ZarakiDono', NULL, '', 0),
+(5, 'faty', 'Dounia_Nkir@email.com', 3, 'NkirNkir', NULL, '', 0),
+(6, 'alpha', 'Zakaria_Mellouki', 2, 'JESUISZAK', NULL, '', 0),
+(8, 'youssef', 'Youssef.Faraby13', 0, 'youssef', NULL, '', 0),
+(9, 'youssef faraby', 'youssef@faraby.com', 1, '1234567', NULL, '', 0),
+(10, 'bouhaddioui', 'manar@gmail.com', 1, '123456789', NULL, '', 0),
+(11, 'admin', 'admin@biblio.com', 0, 'adminDiallo', NULL, '', 0),
+(12, 'diallo', 'diallo@gmail.com', 4, '12345', NULL, '', 0),
+(15, 'Mourtalla Diawara', 'faty@gmail.com', 0, 'passer', 'FR', 'Manga', 0),
+(16, 'DIAWARA12', 'diallo00@gmail.com', 0, '12345', 'ES', 'Informatique', 0),
+(17, 'Mamadou', 'diallo344@gmail.com', 0, 'passer', 'IT', 'Sciencessociales', 0);
 
 -- --------------------------------------------------------
 
@@ -965,7 +967,7 @@ INSERT INTO `livre` (`ISBN`, `titre_livre`, `type_livre`, `img_livre`, `Paragrap
 (417, 'Outaouais et Laurentides à moto', 'Travel', 'http://books.google.com/books/content?id=3jeoBgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api', 'Ce chapitre Outaouais et Laurentides à moto tiré du guide Ulysse Le Québec à moto contient des circuits en Outaouais et dans les Laurentides et de nombreux renseignements pratiques. Le chapitre Outaouais et Laurentides à moto, rédigé par deux motocyclistes aguerries, propose quelques itinéra...', 'FR', 0, 3.5),
 (418, 'Le Québec à moto', 'Travel', 'http://books.google.com/books/content?id=mMmGBgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api', 'Le Québec à moto, guide pour les amateurs de plein air et motocyclistes. Contient des propositions de circuits à travers la province québécoise et de nombreux renseignements pratiques. Le Québec à moto, rédigé par deux motocyclistes aguerries, propose 45 itinéraires de courte ou longue dur...', 'FR', 3, 3.5),
 (419, 'Montréal-Québec autrement à moto', 'Travel', 'http://books.google.com/books/content?id=vo-oBgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api', 'Ce chapitre Montréal-Québec autrement à moto contient des propositions de circuits entre Montréal et Québec et de nombreux renseignements pratriques. Le chapitre Montréal-Québec autrement à moto, rédigé par deux motocyclistes aguerries, propose quelques itinéraires pour un voyage à moto ...', 'FR', 4, 3.5),
-(420, 'Mauricie et Lanaudière à moto', 'Travel', 'http://books.google.com/books/content?id=T4-oBgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api', 'Ce chapitre Mauricie et Lanaudière à moto tiré du guide Ulysse Le Québec à moto contient des propositions de circuits en Mauricie et dans Lanaudière et de nombreux renseignements pratiques. Le chapitre Mauricie et Lanaudière à moto, rédigé par deux motocyclistes aguerries, propose quelques...', 'FR', 3, 3.5),
+(420, 'Mauricie et Lanaudière à moto', 'Travel', 'http://books.google.com/books/content?id=T4-oBgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api', 'Ce chapitre Mauricie et Lanaudière à moto tiré du guide Ulysse Le Québec à moto contient des propositions de circuits en Mauricie et dans Lanaudière et de nombreux renseignements pratiques. Le chapitre Mauricie et Lanaudière à moto, rédigé par deux motocyclistes aguerries, propose quelques...', 'FR', 4, 3.5),
 (421, 'Comment paraître intelligent', 'Social Science', 'http://books.google.com/books/content?id=V4FtBgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api', 'À défaut de devenir intelligents, donnons l\'illusion que nous le sommes ! Longtemps l\'intelligence n\'a été qu\'un luxe, voire un vice. Mais la libéralisation de l\'économie, la mise en place d\'une méritocratie et l\'extension de l\'enseignement ont renversé la donne. Ce qui ne servait autrefois ...', 'FR', 2, 3.5),
 (422, 'A un étage de toi', 'Fiction', 'http://books.google.com/books/content?id=XXhVBgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api', 'Pour toutes celles qui restent au bureau tard le soir... Situation professionnelle : admirable Situation physique : taille mannequin Situation sentimentale : déplorable Il est 21 heures, les bureaux sont déserts et pourtant Valentine est toujours là. C’est ce dévouement sans limite qui lui a p...', 'FR', 3, 3.5);
 INSERT INTO `livre` (`ISBN`, `titre_livre`, `type_livre`, `img_livre`, `Paragraphe`, `cat_pay`, `nb_achat`, `note`) VALUES

@@ -1,5 +1,6 @@
 <?php
 session_start();
+include('modele/connexion.php');
 //la verfication de variable session et et verfier resevoir la variable b
 if(isset($_SESSION['connecter'])){ 
 
